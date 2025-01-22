@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlayMate - Game Management</title>
+    <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body>
+
+<h1>PlayMate Game Management</h1>
+
+<!-- Form to create a new game -->
+<div class="form-container">
+    <h2>Create New Game</h2>
+    <form id="createGameForm" enctype="multipart/form-data">
+        <label for="gameName">Game Name:</label>
+        <input type="text" id="gameName" name="name" required><br><br>
+
+        <label for="gameImage">Game Image:</label>
+        <input type="file" id="gameImage" name="image" accept="image/*" required><br><br>
+
+        <button type="submit">Create Game</button>
+    </form>
+</div>
+
+<div class="form-container">
+    <h2>Hide/Unhide Game</h2>
+    <label for="gameId">Enter Game ID:</label>
+    <input type="text" id="gameId" name="gameId" required><br><br>
+
+    <!-- Button to hide game -->
+    <button id="hideButton" type="button" onclick="hide()">Hide Game</button>
+
+    <!-- Button to unhide game -->
+    <button id="unhideButton" type="button" onclick="unhide()">Unhide Game</button>
+</div>
+<script src="JS/admin.js"></script>
+</body>
+</html>
