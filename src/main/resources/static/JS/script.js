@@ -2,30 +2,55 @@
 document.addEventListener('DOMContentLoaded', function () {
     fetchActiveGames();
 });
-
-// Fetch all active games from the backend
+// Fetch all active games from the backend and display them
 function fetchActiveGames() {
     fetch('/api/games')
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) throw new Error("Failed to fetch games");
+            return response.json();
+        })
         .then(games => {
             const gamesContainer = document.getElementById('gamesContainer');
-            gamesContainer.innerHTML = '';  // Clear existing games list
+            gamesContainer.innerHTML = ''; // Clear the existing games list
 
-            // Loop through each game and create a game element
+            // Loop through each game and dynamically create its element
             games.forEach(game => {
                 const gameElement = document.createElement('div');
                 gameElement.classList.add('game');
                 gameElement.innerHTML = `
-                    <h3>${game.name}</h3>
-                    <img src="data:image/jpeg;base64,${game.base64Image}" alt="${game.name}" class="game-image">
+                    <h3 class="game-name" style="cursor: pointer;" data-id="${game.id}">${game.name}</h3>
+                    <img
+                        src="data:image/jpeg;base64,${game.base64Image}"
+                        alt="${game.name}"
+                        class="game-image"
+                        style="cursor: pointer;"
+                        data-id="${game.id}"
+                    >
                 `;
+
+                // Add click event listeners for the game name and image
+                gameElement.querySelector('.game-name').addEventListener('click', () => {
+                    redirectToCommunity(game.id);
+                });
+
+                gameElement.querySelector('.game-image').addEventListener('click', () => {
+                    redirectToCommunity(game.id);
+                });
+
                 gamesContainer.appendChild(gameElement);
             });
         })
         .catch(error => {
             console.error('Error fetching active games:', error);
+            alert('Unable to load games. Please try again later.');
         });
 }
+
+// Redirect to the community page for the selected game
+function redirectToCommunity(gameId) {
+    window.location.href = `community.html?gameId=${gameId}`;
+}
+
 
 // Handle the form submission for creating a new game
 document.getElementById('createGameForm').addEventListener('submit', function (event) {
@@ -99,3 +124,31 @@ function unhide() {
             console.error('Error un-hiding the game:', error);
         });
 }
+function logout() {
+    fetch("/logout", {
+        method: "POST", // POST is typically used for logout in Spring Security
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+    .then(response => {
+        if (response.ok) {
+            // Redirect to login page after successful logout
+            window.location.href = "/login";  // Redirect to login page
+        } else {
+            alert("Logout failed. Please try again.");
+        }
+    })
+    .catch(error => {
+        console.error("Error during logout:", error);
+        alert("An error occurred while logging out. Please try again.");
+    });
+}
+
+
+
+
+
+
+
+

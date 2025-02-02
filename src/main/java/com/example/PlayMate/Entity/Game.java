@@ -1,11 +1,6 @@
 package com.example.PlayMate.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
-import jakarta.persistence.Transient;
+import jakarta.persistence.*;
 
 @Entity
 public class Game {
@@ -16,7 +11,8 @@ public class Game {
 
     private String name;
 
-    @Lob // Annotation to store large binary data
+    @Lob// Annotation to store large binary data
+    @Column(columnDefinition = "LONGBLOB") // Force the column type to be LONGBLOB
     private byte[] image; // Field for storing the image as a binary object
 
     private boolean isActive = true; // Field to mark the game as active or hidden (default is active)

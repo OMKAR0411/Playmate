@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Profile</title>
+  <link rel="stylesheet" href="CSS/edit.css">
+</head>
+<body>
+
+<h1>Edit Profile</h1>
+
+<!-- Username Field -->
+<form id="editUsernameForm" method="POST">
+  <label for="username">Username:</label>
+  <input type="text" id="username" name="username" required>
+  <button type="submit">Update Username</button>
+</form>
+
+<!-- Bio Field -->
+<form id="editBioForm" method="POST">
+  <label for="bio">Bio:</label>
+  <textarea id="bio" name="bio" rows="4" cols="50" required></textarea>
+  <button type="submit">Update Bio</button>
+</form>
+
+<!-- Favorite Games Field -->
+<form id="editGamesForm" method="POST">
+  <label for="games">Favorite Games:</label>
+  <input type="text" id="games" name="games" required>
+  <button type="submit">Update Favorite Games</button>
+</form>
+
+<!-- Profile Picture Field -->
+<form id="editProfilePicForm" method="POST" enctype="multipart/form-data">
+  <label for="profilePic">Profile Picture:</label>
+  <input type="file" id="profilePic" name="profilePic" accept="image/*">
+  <button type="submit">Update Profile Picture</button>
+</form>
+
+<script src="JS/edit.js"></script>
+</body>
+</html>

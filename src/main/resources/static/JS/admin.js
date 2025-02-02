@@ -21,7 +21,7 @@ document.getElementById('createGameForm').addEventListener('submit', function (e
             console.error('Error creating new game:', error);
         });
 
-    // Reset the form after submission
+    // Reset the form after s ubmission
     this.reset();
 });
 

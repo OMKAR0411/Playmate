@@ -1,6 +1,7 @@
 package com.example.PlayMate.Controller;
 
 import com.example.PlayMate.Entity.Game;
+import com.example.PlayMate.Repository.GameRepo;
 import com.example.PlayMate.Service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,10 +10,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class GameController {
+@Autowired
+    GameRepo gameRepo;
 
     @Autowired
     private GameService gameService;
@@ -20,6 +25,19 @@ public class GameController {
     @GetMapping("/api/games")
     public List<Game> getAllGames() {
         return gameService.getAll(); // This will now return only active games
+    }
+
+    @GetMapping("/api/games/{id}/image")
+    public ResponseEntity<String> getGameImage(@PathVariable Long id) {
+        Optional<Game> game = gameRepo.findById(id);
+
+        if (game.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // Convert the byte array to Base64 string
+        String base64Image = Base64.getEncoder().encodeToString(game.get().getImage());
+        return ResponseEntity.ok(base64Image);
     }
 
     @GetMapping("/api/games/{id}")
